@@ -19,12 +19,12 @@
 
 package org.ossreviewtoolkit.clients.clearlydefined
 
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonValue
+import kotlinx.serialization.Serializable
 
 /**
  * See https://github.com/clearlydefined/service/blob/48f2c97/schemas/definition-1.0.json#L32-L48.
  */
+@Serializable
 enum class ComponentType(val value: String) {
     NPM("npm"),
     CRATE("crate"),
@@ -41,19 +41,18 @@ enum class ComponentType(val value: String) {
     DEBIAN_SOURCES("debsrc");
 
     companion object {
-        @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
         @JvmStatic
         fun fromString(value: String) =
             enumValues<ComponentType>().single { value.equals(it.value, ignoreCase = true) }
     }
 
-    @JsonValue
     override fun toString() = value
 }
 
 /**
  * See https://github.com/clearlydefined/service/blob/48f2c97/schemas/definition-1.0.json#L49-L65.
  */
+@Serializable
 enum class Provider(val value: String) {
     NPM_JS("npmjs"),
     COCOAPODS("cocoapods"),
@@ -70,35 +69,33 @@ enum class Provider(val value: String) {
     DEBIAN("debian");
 
     companion object {
-        @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
         @JvmStatic
         fun fromString(value: String) = enumValues<Provider>().single { value.equals(it.value, ignoreCase = true) }
     }
 
-    @JsonValue
     override fun toString() = value
 }
 
 /**
  * See https://github.com/clearlydefined/service/blob/4917725/schemas/definition-1.0.json#L128.
  */
+@Serializable
 enum class Nature {
     LICENSE,
     NOTICE;
 
     companion object {
-        @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
         @JvmStatic
         fun fromString(value: String) = enumValues<Nature>().single { value.equals(it.name, ignoreCase = true) }
     }
 
-    @JsonValue
     override fun toString() = name.lowercase()
 }
 
 /**
  * See https://github.com/clearlydefined/website/blob/43ec5e3/src/components/ContributePrompt.js#L78-L82.
  */
+@Serializable
 enum class ContributionType {
     MISSING,
     INCORRECT,
@@ -107,13 +104,11 @@ enum class ContributionType {
     OTHER;
 
     companion object {
-        @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
         @JvmStatic
         fun fromString(value: String) =
             enumValues<ContributionType>().single { value.equals(it.name, ignoreCase = true) }
     }
 
-    @JsonValue
     override fun toString() = name.titlecase()
 }
 
